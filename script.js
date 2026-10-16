@@ -6,17 +6,21 @@ function addMessage(sender, text) {
 }
 
 async function chuckReply(msg) {
-  // Call backend AI (replace with your Render URL)
-  const response = await fetch("https://your-backend.onrender.com/ask", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: msg })
-  });
-  const data = await response.json();
+  try {
+    // Call backend AI (replace with your Render URL)
+    const response = await fetch("https://your-backend.onrender.com/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: msg })
+    });
+    const data = await response.json();
 
-  addMessage("chuck", data.reply);
-  speak(data.reply);
-  playWakeSound();
+    addMessage("chuck", data.reply);
+    speak(data.reply);
+    playWakeSound(); // chime when Chuck replies
+  } catch (err) {
+    addMessage("chuck", "Boss, I couldn’t reach my brain backend 🤖");
+  }
 }
 
 function sendMessage() {
@@ -61,25 +65,10 @@ function speak(text) {
   if (preferredVoice) utter.voice = preferredVoice;
 
   synth.speak(utter);
-}function playWakeSound() {
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const oscillator = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-
-  oscillator.type = "sine"; // smooth tone
-  oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 note
-  gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
-
-  oscillator.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-
-  oscillator.start();
-  oscillator.stop(audioCtx.currentTime + 0.5); // play for half a second
 }
 
-
-// Sound effect
+// Play wake-up chime
 function playWakeSound() {
-  const audio = new Audio("wake.mp3"); // Add wake.mp3 in frontend folder
+  const audio = new Audio("wake.mp3"); // add wake.mp3 in frontend folder
   audio.play();
 }
