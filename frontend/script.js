@@ -7,8 +7,8 @@ function addMessage(sender, text) {
 
 async function chuckReply(msg) {
   try {
-    // Call backend AI (replace with your Render URL)
-    const response = await fetch("https://your-backend.onrender.com/ask", {
+    // Call backend AI (your Render URL)
+    const response = await fetch("https://c-h-u-c-k4-0-2.onrender.com/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: msg })
