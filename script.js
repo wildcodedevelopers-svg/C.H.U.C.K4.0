@@ -61,7 +61,22 @@ function speak(text) {
   if (preferredVoice) utter.voice = preferredVoice;
 
   synth.speak(utter);
+}function playWakeSound() {
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+
+  oscillator.type = "sine"; // smooth tone
+  oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 note
+  gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + 0.5); // play for half a second
 }
+
 
 // Sound effect
 function playWakeSound() {
