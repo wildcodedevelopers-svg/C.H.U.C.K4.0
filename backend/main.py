@@ -5,7 +5,7 @@ import os
 
 app = FastAPI()
 
-# ✅ Fixed CORS configuration
+# ✅ Allow frontend (GitHub Pages) to talk to backend (Render)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -14,15 +14,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ Correct OpenAI v1.0+ client initialization
+# ✅ Load OpenAI client with API key from environment variable
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+# ✅ Root endpoint (Fixes {"detail": "Not Found"})
+@app.get("/")
+def home():
+    return {"status": "Chuck backend is running!"}
 
 @app.post("/ask")
 async def ask(request: Request):
     data = await request.json()
     msg = data.get("message", "")
 
-    # ✅ Correct v1.0+ completion call
+    # ✅ Call OpenAI API
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": msg}]
