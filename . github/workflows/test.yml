@@ -1,0 +1,10 @@
+name: Workflow Detection Test
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm workflow runs
+        run: echo "GitHub Actions is working!"
