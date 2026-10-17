@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050816">
+    <title>C.H.U.C.K. AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app">
+        <header>
+            <div class="logo">C</div>
+            <div>
+                <h1>C.H.U.C.K.</h1>
+                <p>PERSONAL AI ASSISTANT</p>
+            </div>
+            <span id="status">ONLINE</span>
+        </header>
+
+        <section class="assistant">
+            <div class="orb">C</div>
+            <h2>At your service.</h2>
+            <p>Your intelligent assistant is ready.</p>
+        </section>
+
+        <section id="chat" aria-live="polite">
+            <div class="message bot">
+                Hello, Boss Wayne. I'm C.H.U.C.K.
+                How can I help you today?
+            </div>
+        </section>
+
+        <form id="messageForm">
+            <input id="message"
+                   type="text"
+                   placeholder="Talk to C.H.U.C.K..."
+                   autocomplete="off"
+                   required>
+            <button type="submit">SEND</button>
+        </form>
+
+        <p class="footer">C.H.U.C.K. · YOUR AI, YOUR COMMAND</p>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
